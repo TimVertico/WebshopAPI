@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
   title: Webshop API
-  version: 0.8.2
+  version: 0.8.2a
   description: Webshop API
   contact:
     name: Vertico IT Solutions BVBA
@@ -209,6 +209,7 @@ paths:
       operationId: getAfbeeldingenVanProduct
       summary: GET afbeeldingen van product
       description: Verkrijg alle afbeeldingen van een bepaald product
+
 components:
   
     #           #
