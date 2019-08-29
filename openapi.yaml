@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
   title: Webshop API
-  version: 0.8.2a
+  version: 0.8.3
   description: Webshop API
   contact:
     name: Vertico IT Solutions BVBA
@@ -346,7 +346,7 @@ components:
           type: boolean
             
     product_get:
-      anyOf:
+      allOf:
         - $ref: '#/components/schemas/product_patch'
         - type: array
           items:
@@ -466,9 +466,9 @@ components:
         type: array
         items:
           enum:
-            - idgroep
-            - groepscode
-            - groepsnaam
+            - url
+            - code
+            - naam
       in: query
       
     productSortParameter:
@@ -478,9 +478,11 @@ components:
         type: array
         items:
           enum:
-            - idartikel
+            - id
             - sku
-            - benaming
+            - naam
+            - prijs
+            - stock
       in: query
     
     afbeeldingSortParameter:
@@ -490,7 +492,7 @@ components:
         type: array
         items:
           enum:
-            - idafbeelding
+            - url
             - guid
             - volgnummer
       in: query
