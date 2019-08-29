@@ -1,727 +1,503 @@
 openapi: 3.0.2
 info:
-    title: Webshop API
-    version: 0.8.2
-    description: Webshop API
-    contact:
-        name: Vertico IT Solutions BVBA
-        url: 'https://vertico-it-solutions.be'
-        email: support@vertico.be
-    license:
-        name: Licentie
-        url: 'https://vertico-it-solutions.be'
+  title: Webshop API
+  version: 0.8.2
+  description: Webshop API
+  contact:
+    name: Vertico IT Solutions BVBA
+    url: 'https://vertico-it-solutions.be'
+    email: support@vertico.be
+  license:
+    name: Licentie
+    url: 'https://vertico-it-solutions.be'
 servers:
-    -
-        url: 'https://www.verticoshop.be/webwinkel/v2'
+  - url: 'https://www.verticoshop.be/webwinkel/v2'
 paths:
-    '/shop/{guid_winkel}/product/{id_product}/afbeelding/{guid_afbeelding}':
-        get:
-            tags:
-                - afbeelding
-            parameters:
-                -
-                    $ref: '#/components/parameters/winkelGUIDParameter'
-                -
-                    $ref: '#/components/parameters/id_product'
-                -
-                    $ref: '#/components/parameters/guid_afbeelding'
-                -
-                    name: test-modus
-                    description: Gebruik een test database voor deze call
-                    schema:
-                        type: boolean
-                    in: header
-            responses:
-                '200':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                description: Een array van afbeeldinginfo die teruggegeven wordt na een
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/afbeeldings_get'
-                    description: Aanvraag is succesvol
-                '400':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Ontbrekende parameter id_product of guid_afbeelding
-                '401':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Foutieve api-key
-                '403':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Geen rechten voor deze actie uit te voeren
-                '404':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: >-
-                        Onbestaande sleutel, onbestaand product of onbestaande
-                        guid_afbeelding
-            security:
-                -
-                    api_key_schema: []
-            operationId: getAfbeeldingVanProductMetGUID
-            summary: GET afbeelding van product
-            description: Verkrijg alle afbeeldingen van een bepaald product
-    '/shop/{guid_winkel}/product/{id_product}':
-        get:
-            tags:
-                - product
-            parameters:
-                -
-                    $ref: '#/components/parameters/winkelGUIDParameter'
-                -
-                    $ref: '#/components/parameters/id_product'
-                -
-                    name: test-modus
-                    description: Gebruik een test database voor deze call
-                    schema:
-                        default: '0'
-                        type: boolean
-                    in: header
-            responses:
-                '200':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/products_get'
-                    description: Aanvraag is succesvol
-                '400':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Ontbrekende parameter id_product
-                '401':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Foutieve api-key
-                '403':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Geen rechten voor deze actie uit te voeren
-                '404':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: 'Onbestaande sleutel of onbestaand product'
-            security:
-                -
-                    api_key_schema: []
-            operationId: getProductMetID
-            summary: GET Product
-            description: Verkrijg productinfo over het product met een opgegeven id_product
-    '/shop/{guid_winkel}/groep':
-        get:
-            tags:
-                - groep
-            parameters:
-                -
-                    $ref: '#/components/parameters/winkelGUIDParameter'
-                -
-                    $ref: '#/components/parameters/APIKeyParameter'
-                -
-                    $ref: '#/components/parameters/testModusParameter'
-                -
-                    $ref: '#/components/parameters/pageParameter'
-                -
-                    $ref: '#/components/parameters/countParameter'
-                -
-                    $ref: '#/components/parameters/groepSortParameter'
-            responses:
-                '200':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/groeps_get'
-                    description: Aanvraag is succesvol
-                '401':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Foutieve api-key
-                '403':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Geen rechten voor deze actie uit te voeren
-                '404':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Onbestaande winkel
-            security:
-                -
-                    api_key_schema: []
-            operationId: getGroep
-            description: Verkrijg de lijst van alle productgroepen
-        parameters:
-            -
-                name: test-modus
-                description: test modus
-                schema:
-                    type: boolean
-                in: header
-    '/shop/{guid_winkel}/groep/{id_groep}/product':
-        get:
-            tags:
-                - product
-            parameters:
-                -
-                    $ref: '#/components/parameters/winkelGUIDParameter'
-                -
-                    $ref: '#/components/parameters/id_groep'
-                -
-                    $ref: '#/components/parameters/APIKeyParameter'
-                -
-                    $ref: '#/components/parameters/testModusParameter'
-                -
-                    $ref: '#/components/parameters/pageParameter'
-                -
-                    $ref: '#/components/parameters/countParameter'
-                -
-                    $ref: '#/components/parameters/productSortParameter'
-            responses:
-                '200':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/product_get'
-                    description: Aanvraag is succesvol
-                '401':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Foutieve api-key
-                '400':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Ontbrekende parameter id_product
-                '403':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Geen rechten voor deze actie uit te voeren
-                '404':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: 'Onbestaande winkel of onbestaande groep'
-            security:
-                -
-                    api_key_schema: []
-            operationId: getProductVanProductGroep
-            summary: GET producten van groep
-            description: Verkrijg alle producten van de productgroep met een opgegeven id_groep
-    '/shop/{guid_winkel}/product/{id_product}/afbeelding':
-        get:
-            tags:
-                - afbeelding
-            parameters:
-                -
-                    $ref: '#/components/parameters/winkelGUIDParameter'
-                -
-                    $ref: '#/components/parameters/id_product'
-                -
-                    $ref: '#/components/parameters/APIKeyParameter'
-                -
-                    $ref: '#/components/parameters/testModusParameter'
-                -
-                    $ref: '#/components/parameters/pageParameter'
-                -
-                    $ref: '#/components/parameters/countParameter'
-                -
-                    $ref: '#/components/parameters/afbeeldingSortParameter'
-            responses:
-                '200':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/afbeeldings_get'
-                    description: Aanvraag is succesvol
-                '401':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Foutieve api-key
-                '400':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Ontbrekende parameter id_product
-                '403':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: Geen rechten voor deze actie uit te voeren
-                '404':
-                    headers:
-                        sessie_id:
-                            schema:
-                                type: string
-                            description: Unieke GUID van de uitgevoerde call
-                        versie:
-                            schema:
-                                type: string
-                            description: API versienummer
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error_response_body'
-                    description: 'Onbestaande winkel of onbestaand product'
-            security:
-                -
-                    api_key_schema: []
-            operationId: getAfbeeldingenVanProduct
-            summary: GET afbeeldingen van product
-            description: Verkrijg alle afbeeldingen van een bepaald product
+  '/shop/{guid_winkel}/product/{id_product}/afbeelding/{guid_afbeelding}':
+    get:
+      tags:
+        - afbeelding
+      parameters:
+        - $ref: '#/components/parameters/winkelGUIDParameter'
+        - $ref: '#/components/parameters/id_product'
+        - $ref: '#/components/parameters/guid_afbeelding'
+        - $ref: '#/components/parameters/testModusParameter'
+      responses:
+        '200':
+          headers:
+            sessie_id:
+              schema:
+                type: string
+                description: Unieke GUID van de uitgevoerde call
+            versie:
+              schema:
+                type: string
+                description: API versienummer
+          content:
+            application/json:
+              schema:
+                description: Een array van afbeeldinginfo die teruggegeven wordt na een
+                type: array
+                items:
+                  $ref: '#/components/schemas/afbeeldings_get'
+          description: Aanvraag is succesvol
+        '401':
+          $ref: '#/components/responses/401_foutieveAPISleutel'
+        '403':
+          $ref: '#/components/responses/403_geenRechten'
+        '404':
+          $ref: '#/components/responses/404_onbestaandeResource'
+      security:
+        - api_key_schema: []
+      operationId: getAfbeeldingVanProductMetGUID
+      summary: GET afbeelding van product
+      description: Verkrijg alle afbeeldingen van een bepaald product
+            
+  '/shop/{guid_winkel}/product/{id_product}':
+    get:
+      tags:
+        - product
+      parameters:
+        - $ref: '#/components/parameters/winkelGUIDParameter'
+        - $ref: '#/components/parameters/id_product'
+        - $ref: '#/components/parameters/testModusParameter'
+      responses:
+        '200':
+          headers:
+            sessie_id:
+              schema:
+                type: string
+              description: Unieke GUID van de uitgevoerde call
+            versie:
+              schema:
+                type: string
+              description: API versienummer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/products_get'
+          description: Aanvraag is succesvol
+        '400':
+          $ref: '#/components/responses/400_incorrecteAanvraag'
+        '401':
+          $ref: '#/components/responses/401_foutieveAPISleutel'
+        '403':
+          $ref: '#/components/responses/403_geenRechten'
+        '404':
+          $ref: '#/components/responses/404_onbestaandeResource'
+      security:
+        - api_key_schema: []
+      operationId: getProductMetID
+      summary: GET Product
+      description: Verkrijg productinfo over het product met een opgegeven id_product
+            
+  '/shop/{guid_winkel}/groep':
+    get:
+      tags:
+        - groep
+      parameters:
+        - $ref: '#/components/parameters/winkelGUIDParameter'
+        - $ref: '#/components/parameters/testModusParameter'
+        - $ref: '#/components/parameters/pageParameter'
+        - $ref: '#/components/parameters/countParameter'
+        - $ref: '#/components/parameters/groepSortParameter'
+      responses:
+        '200':
+          headers:
+            sessie_id:
+              schema:
+                type: string
+              description: Unieke GUID van de uitgevoerde call
+            versie:
+              schema:
+                type: string
+              description: API versienummer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groeps_get'
+          description: Aanvraag is succesvol
+        '401':
+          $ref: '#/components/responses/401_foutieveAPISleutel'
+        '403':
+          $ref: '#/components/responses/403_geenRechten'
+        '404':
+          $ref: '#/components/responses/404_onbestaandeResource'
+      security:
+        - api_key_schema: []
+      operationId: getGroep
+      description: Verkrijg de lijst van alle productgroepen
+
+  '/shop/{guid_winkel}/groep/{id_groep}/product':
+    get:
+      tags:
+        - product
+      parameters:
+        - $ref: '#/components/parameters/winkelGUIDParameter'
+        - $ref: '#/components/parameters/id_groep'
+        - $ref: '#/components/parameters/testModusParameter'
+        - $ref: '#/components/parameters/pageParameter'
+        - $ref: '#/components/parameters/countParameter'
+        - $ref: '#/components/parameters/productSortParameter'
+      responses:
+        '200':
+          headers:
+            sessie_id:
+              schema:
+                type: string
+              description: Unieke GUID van de uitgevoerde call
+            versie:
+              schema:
+                type: string
+              description: API versienummer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/product_get'
+          description: Aanvraag is succesvol
+        '400':
+          $ref: '#/components/responses/400_incorrecteAanvraag'
+        '401':
+          $ref: '#/components/responses/401_foutieveAPISleutel'
+        '403':
+          $ref: '#/components/responses/403_geenRechten'
+        '404':
+          $ref: '#/components/responses/404_onbestaandeResource'
+      security:
+        - api_key_schema: []
+      operationId: getProductVanProductGroep
+      summary: GET producten van groep
+      description: Verkrijg alle producten van de productgroep met een opgegeven id_groep
+            
+  '/shop/{guid_winkel}/product/{id_product}/afbeelding':
+    get:
+      tags:
+        - afbeelding
+      parameters:
+        - $ref: '#/components/parameters/winkelGUIDParameter'
+        - $ref: '#/components/parameters/id_product'
+        - $ref: '#/components/parameters/testModusParameter'
+        - $ref: '#/components/parameters/pageParameter'
+        - $ref: '#/components/parameters/countParameter'
+        - $ref: '#/components/parameters/afbeeldingSortParameter'
+      responses:
+        '200':
+          headers:
+            sessie_id:
+              schema:
+                type: string
+                description: Unieke GUID van de uitgevoerde call
+            versie:
+              schema:
+                type: string
+              description: API versienummer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/afbeeldings_get'
+          description: Aanvraag is succesvol
+        '401':
+          $ref: '#/components/responses/401_foutieveAPISleutel'
+        '403':
+          $ref: '#/components/responses/403_geenRechten'
+        '404':
+          $ref: '#/components/responses/404_onbestaandeResource'
+      security:
+        - api_key_schema: []
+      operationId: getAfbeeldingenVanProduct
+      summary: GET afbeeldingen van product
+      description: Verkrijg alle afbeeldingen van een bepaald product
 components:
-    schemas:
-        afbeelding_get:
-            description: Een afbeelding
-            type: object
-            properties:
-                url:
-                    description: 'De url waar de afbeelding terug te vinden is. Vul deze aan met http://verticoshop.be'
-                    type: string
-                guid:
-                    description: Een lijn uit de array van afbeeldinginfo die teruggegeven wordt na een GET request
-                    type: string
-        afbeeldings_get:
-            description: Een array van afbeeldinginfo die teruggegeven wordt na een
-            type: array
-            items:
-                $ref: '#/components/schemas/afbeelding_get'
-        afbeelding_put:
-            description: De afbeeldinginfo die meegegeven wordt bij een PUT request
-            type: object
-            properties:
-                base64:
-                    type: string
-        error_response_body:
-            description: De body van een error
-            type: object
-            properties:
-                error:
-                    description: Korte omschrijving van de fout
-                    type: string
-                info:
-                    description: Meer info over de fout
-                    type: string
-        product_patch:
-            description: De productinfo die meegegeven kan worden voor het uitvoeren van een PATCH reqeust
-            type: object
-            properties:
-                id_groep:
-                    format: int64
-                    type: integer
-                sku:
-                    type: string
-                naam:
-                    type: string
-                prijs:
-                    type: number
-                stock:
-                    format: int32
-                    type: integer
-                btw_percentage:
-                    type: number
-                extra_info:
-                    type: string
-                virtuele_stock:
-                    type: boolean
-        product_get:
-            anyOf:
-                -
-                    $ref: '#/components/schemas/product_patch'
-                -
-                    type: array
-                    items:
-                        $ref: '#/components/schemas/afbeelding_get'
-            description: Een lijn uit de array van productinfo die teruggegeven wordt na een GET request
-        products_get:
-            description: De array van productinfo die teruggegeven wordt na een GET request
-            type: array
-            items:
-                $ref: '#/components/schemas/product_get'
-        groep_get:
-            description: Productgroepinfo die teruggegeven wordt na een GET Request
-            allOf:
-                -
-                    $ref: '#/components/schemas/groep'
-                -
-                    type: object
-                    properties:
-                        url:
-                            description: De url waar de afbeelding van de groep zich bevindt.
-                            type: string
-        groep:
-            description: Algemene omschrijving productgroepinfo
-            required:
-                - id
-                - code
-                - naam
-            type: object
-            properties:
-                id:
-                    format: int64
-                    type: integer
-                code:
-                    type: string
-                naam:
-                    type: string
-        groeps_get:
-            description: De array met productgroepinfo die teruggegeven wordt na een GET Request
-            type: array
-            items:
-                $ref: '#/components/schemas/groep_get'
-        groep_put:
-            description: Productgroepinfo die meegegeven moet worden bij een PUT Request
-            allOf:
-                -
-                    $ref: '#/components/schemas/groep'
-                -
-                    type: object
-                    properties:
-                        base64:
-                            description: Afbeelding geëncodeerd in Base64
-                            type: string
-    parameters:
-        winkelGUIDParameter:
-            name: guid_winkel
-            description: De unieke string die gelinkt is aan de winkel
-            schema:
-                type: string
-            in: path
-            required: true
-        APIKeyParameter:
-            name: api-key
-            description: De API sleutel van de gebruiker
-            schema:
-                type: string
-            in: header
-            required: true
-        testModusParameter:
-            name: test-modus
-            description: Gebruik deze header om niet in de productiedatabase weg te schrijven
-            schema:
-                type: boolean
-            in: header
+  
+    #           #
+   # RESPONSES #
+  #           #
+  responses:
+    
+    400_incorrecteAanvraag:
+      description: Foutieve body
+      headers:
+        sessie_id:
+          schema:
+            type: string
+            description: Unieke GUID van de uitgevoerde call
+        versie:
+          schema:
+            type: string
+            description: API versienummer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response_body'
+    
+    401_foutieveAPISleutel:
+      description: Foutieve API-sleutel
+      headers:
+        sessie_id:
+          schema:
+              type: string
+              description: Unieke GUID van de uitgevoerde call
+        versie:
+          schema:
+            type: string
+            description: API versienummer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response_body'
+            
+    403_geenRechten:
+      description: Foutieve API-sleutel
+      headers:
+        sessie_id:
+          schema:
+            type: string
+            description: Unieke GUID van de uitgevoerde call
+        versie:
+          schema:
+            type: string
+            description: API versienummer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response_body'
+              
+    404_onbestaandeResource:
+      description: Onbestaande resource (winkel, etc)
+      headers:
+        sessie_id:
+          schema:
+            type: string
+            description: Unieke GUID van de uitgevoerde call
+        versie:
+          schema:
+            type: string
+            description: API versienummer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response_body'
+            
+            
+  schemas:
+    afbeelding_get:
+      description: Een afbeelding
+      type: object
+      properties:
+        url:
+          description: 'De url waar de afbeelding terug te vinden is. Vul deze aan met http://verticoshop.be'
+          type: string
+        guid:
+          description: Een lijn uit de array van afbeeldinginfo die teruggegeven wordt na een GET request
+          type: string
+          
+    afbeeldings_get:
+      description: Een array van afbeeldinginfo die teruggegeven wordt na een
+      type: array
+      items:
+        $ref: '#/components/schemas/afbeelding_get'
+            
+    afbeelding_put:
+      description: De afbeeldinginfo die meegegeven wordt bij een PUT request
+      type: object
+      properties:
+        base64:
+          type: string
+  
+    error_response_body:
+      description: De body van een error
+      type: object
+      properties:
+        error:
+          description: Korte omschrijving van de fout
+          type: string
+        info:
+          description: Meer info over de fout
+          type: string
+            
+    product_patch:
+      description: De productinfo die meegegeven kan worden voor het uitvoeren van een PATCH reqeust
+      type: object
+      properties:
         id_groep:
-            name: id_groep
-            description: De ID van de groep
-            schema:
-                type: integer
-            in: path
-            required: true
-        id_product:
-            name: id_product
-            description: De ID van het product
-            schema:
-                type: integer
-            in: path
-            required: true
-        guid_afbeelding:
-            name: guid_afbeelding
-            description: naam van de afbeelding
-            schema:
-                type: string
-            in: path
-            required: true
-        countParameter:
-            name: count
-            description: Beperkt het aantal terug te geven items
-            schema:
-                minimum: 1
-                type: integer
-            in: query
-            required: false
-        pageParameter:
-            name: page
-            description: Bepaalt de offset
-            schema:
-                minimum: 1
-                type: integer
-            in: query
-            required: false
-        groepSortParameter:
-            name: sort
-            description: Bepaalt de sortering
-            schema:
-                type: array
-                items:
-                    enum:
-                        - idgroep
-                        - groepscode
-                        - groepsnaam
-            in: query
-        productSortParameter:
-            name: sort
-            description: Bepaalt de sortering
-            schema:
-                type: array
-                items:
-                    enum:
-                        - idartikel
-                        - sku
-                        - benaming
-            in: query
-        afbeeldingSortParameter:
-            name: sort
-            description: Bepaalt de sortering
-            schema:
-                type: array
-                items:
-                    enum:
-                        - idafbeelding
-                        - guid
-                        - volgnummer
-            in: query
-    securitySchemes:
-        api_key_schema:
-            type: apiKey
-            description: De API sleutel die is toegekend aan de gebruiker
-            name: api-key
-            in: header
+          format: int64
+          type: integer
+        sku:
+          type: string
+        naam:
+          type: string
+        prijs:
+          type: number
+        stock:
+          format: int32
+          type: integer
+        btw_percentage:
+          type: number
+        extra_info:
+          type: string
+        virtuele_stock:
+          type: boolean
+            
+    product_get:
+      anyOf:
+        - $ref: '#/components/schemas/product_patch'
+        - type: array
+          items:
+            $ref: '#/components/schemas/afbeelding_get'
+      description: Een lijn uit de array van productinfo die teruggegeven wordt na een GET request
+        
+    products_get:
+      description: De array van productinfo die teruggegeven wordt na een GET request
+      type: array
+      items:
+        $ref: '#/components/schemas/product_get'
+        
+    groep_get:
+      description: Productgroepinfo die teruggegeven wordt na een GET Request
+      allOf:
+        - $ref: '#/components/schemas/groep'
+        - type: object
+      properties:
+          url:
+            description: De url waar de afbeelding van de groep zich bevindt.
+            type: string
+        
+    groep:
+      description: Algemene omschrijving productgroepinfo
+      required:
+        - id
+        - code
+        - naam
+      type: object
+      properties:
+        id:
+          format: int64
+          type: integer
+        code:
+          type: string
+        naam:
+          type: string
+        
+    groeps_get:
+      description: De array met productgroepinfo die teruggegeven wordt na een GET Request
+      type: array
+      items:
+        $ref: '#/components/schemas/groep_get'
+        
+    groep_put:
+      description: Productgroepinfo die meegegeven moet worden bij een PUT Request
+      allOf:
+      - $ref: '#/components/schemas/groep'
+      - type: object
+        properties:
+          base64:
+            description: Afbeelding geëncodeerd in Base64
+            type: string
+  
+  parameters:
+    winkelGUIDParameter:
+      name: guid_winkel
+      description: De unieke string die gelinkt is aan de winkel
+      schema:
+        type: string
+      in: path
+      required: true
+
+    testModusParameter:
+      name: test-modus
+      description: Gebruik deze header om niet in de productiedatabase weg te schrijven
+      schema:
+        type: boolean
+      in: header
+    
+    id_groep:
+      name: id_groep
+      description: De ID van de groep
+      schema:
+        type: integer
+      in: path
+      required: true
+      
+    id_product:
+      name: id_product
+      description: De ID van het product
+      schema:
+        type: integer
+      in: path
+      required: true
+    
+    guid_afbeelding:
+      name: guid_afbeelding
+      description: naam van de afbeelding
+      schema:
+        type: string
+      in: path
+      required: true
+    
+    countParameter:
+      name: count
+      description: Beperkt het aantal terug te geven items
+      schema:
+        minimum: 1
+        type: integer
+      in: query
+      required: false
+    
+    pageParameter:
+      name: page
+      description: Geeft aan welke pagina er getoond moet worden. Heeft enkel effect in combinatie met count. 
+      schema:
+        minimum: 1
+        type: integer
+      in: query
+      required: false
+    
+    groepSortParameter:
+      name: sort
+      description: Bepaalt de sortering
+      schema:
+        type: array
+        items:
+          enum:
+            - idgroep
+            - groepscode
+            - groepsnaam
+      in: query
+      
+    productSortParameter:
+      name: sort
+      description: Bepaalt de sortering
+      schema:
+        type: array
+        items:
+          enum:
+            - idartikel
+            - sku
+            - benaming
+      in: query
+    
+    afbeeldingSortParameter:
+      name: sort
+      description: Bepaalt de sortering
+      schema:
+        type: array
+        items:
+          enum:
+            - idafbeelding
+            - guid
+            - volgnummer
+      in: query
+      
+  securitySchemes:
+    api_key_schema:
+      type: apiKey
+      description: De API sleutel die is toegekend aan de gebruiker
+      name: api-key
+      in: header
+      
 tags:
-    -
-        name: groep
-    -
-        name: product
-    -
-        name: afbeelding
+  - name: groep
+  - name: product
+  - name: afbeelding
