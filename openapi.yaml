@@ -10,6 +10,10 @@ info:
   license:
     name: Licentie
     url: 'https://vertico-it-solutions.be'
+  x-logo:
+    url: 'https://raw.githubusercontent.com/TimVertico/WebshopAPI/master/VerticoWebshopAPI.png'
+    backgroundColor: '#004860'
+    altText: 'Vertico webshop API logo'
 servers:
   - url: 'https://www.verticoshop.be/webwinkel/v2'
 paths:
