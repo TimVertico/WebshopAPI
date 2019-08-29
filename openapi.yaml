@@ -345,13 +345,15 @@ components:
         virtuele_stock:
           type: boolean
             
-    product_get:
-      # tijdelijke commentaar
-      anyOf:
+    product_get:      
+      allOf:
         - $ref: '#/components/schemas/product_patch'
-        - type: array
-          items:
-            $ref: '#/components/schemas/afbeelding_get'
+        - type: object
+          properties:
+            afbeeldingen:
+              type: array
+              items:
+                $ref: '#/components/schemas/afbeelding_get'
       description: Een lijn uit de array van productinfo die teruggegeven wordt na een GET request
         
     products_get:
@@ -365,10 +367,10 @@ components:
       allOf:
         - $ref: '#/components/schemas/groep'
         - type: object
-      properties:
-          url:
-            description: De url waar de afbeelding van de groep zich bevindt.
-            type: string
+          properties:
+            url:
+              description: De url waar de afbeelding van de groep zich bevindt.
+              type: string
         
     groep:
       description: Algemene omschrijving productgroepinfo
