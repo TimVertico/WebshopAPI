@@ -346,7 +346,7 @@ components:
           type: boolean
             
     product_get:
-      allOf:
+      anyOf:
         - $ref: '#/components/schemas/product_patch'
         - type: array
           items:
