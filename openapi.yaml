@@ -346,6 +346,7 @@ components:
           type: boolean
             
     product_get:
+      # tijdelijke commentaar
       anyOf:
         - $ref: '#/components/schemas/product_patch'
         - type: array
