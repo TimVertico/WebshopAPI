@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0.2
 info:
     title: Webshop API
     version: 0.8.2
@@ -65,6 +65,21 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/error_response_body'
                     description: Ontbrekende parameter id_product of guid_afbeelding
+                '401':
+                    headers:
+                        sessie_id:
+                            schema:
+                                type: string
+                            description: Unieke GUID van de uitgevoerde call
+                        versie:
+                            schema:
+                                type: string
+                            description: API versienummer
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error_response_body'
+                    description: Foutieve api-key
                 '403':
                     headers:
                         sessie_id:
@@ -95,7 +110,7 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/error_response_body'
                     description: >-
-                        Foutieve api-key, onbestaande sleutel, onbestaand product of onbestaande
+                        Onbestaande sleutel, onbestaand product of onbestaande
                         guid_afbeelding
             security:
                 -
@@ -150,6 +165,21 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/error_response_body'
                     description: Ontbrekende parameter id_product
+                '401':
+                    headers:
+                        sessie_id:
+                            schema:
+                                type: string
+                            description: Unieke GUID van de uitgevoerde call
+                        versie:
+                            schema:
+                                type: string
+                            description: API versienummer
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error_response_body'
+                    description: Foutieve api-key
                 '403':
                     headers:
                         sessie_id:
@@ -179,7 +209,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/error_response_body'
-                    description: 'Foutieve api-key, onbestaande sleutel of onbestaand product'
+                    description: 'Onbestaande sleutel of onbestaand product'
             security:
                 -
                     api_key_schema: []
@@ -219,6 +249,21 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/groeps_get'
                     description: Aanvraag is succesvol
+                '401':
+                    headers:
+                        sessie_id:
+                            schema:
+                                type: string
+                            description: Unieke GUID van de uitgevoerde call
+                        versie:
+                            schema:
+                                type: string
+                            description: API versienummer
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error_response_body'
+                    description: Foutieve api-key
                 '403':
                     headers:
                         sessie_id:
@@ -248,7 +293,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/error_response_body'
-                    description: Foutieve api-key of onbekende sleutel
+                    description: Onbestaande winkel
             security:
                 -
                     api_key_schema: []
@@ -298,6 +343,21 @@ paths:
                                 items:
                                     $ref: '#/components/schemas/product_get'
                     description: Aanvraag is succesvol
+                '401':
+                    headers:
+                        sessie_id:
+                            schema:
+                                type: string
+                            description: Unieke GUID van de uitgevoerde call
+                        versie:
+                            schema:
+                                type: string
+                            description: API versienummer
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error_response_body'
+                    description: Foutieve api-key
                 '400':
                     headers:
                         sessie_id:
@@ -342,7 +402,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/error_response_body'
-                    description: 'Foutieve api-key, onbestaande sleutel of onbestaande groep'
+                    description: 'Onbestaande winkel of onbestaande groep'
             security:
                 -
                     api_key_schema: []
@@ -384,6 +444,21 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/afbeeldings_get'
                     description: Aanvraag is succesvol
+                '401':
+                    headers:
+                        sessie_id:
+                            schema:
+                                type: string
+                            description: Unieke GUID van de uitgevoerde call
+                        versie:
+                            schema:
+                                type: string
+                            description: API versienummer
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error_response_body'
+                    description: Foutieve api-key
                 '400':
                     headers:
                         sessie_id:
@@ -428,7 +503,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/error_response_body'
-                    description: 'Foutieve api-key, onbestaande sleutel of onbestaand product'
+                    description: 'Onbestaande winkel of onbestaand product'
             security:
                 -
                     api_key_schema: []
